@@ -52,7 +52,7 @@ export default function Home() {
         {currentColors.map((color, index) => (
           <div
             key={index}
-            className="flex items-center justify-center font-bold text-white opacity-80 shadow-lg transition-transform duration-300 ease-in-out hover:scale-110"
+            className="flex items-center justify-center font-bold text-white opacity-60 shadow-lg transition-transform duration-300 ease-in-out hover:scale-110"
             style={{
               backgroundColor: `rgb(${color[0] * 255}, ${color[1] * 255}, ${
                 color[2] * 255
@@ -71,6 +71,10 @@ export default function Home() {
       >
         discover
       </button>
+
+      <p className="absolute bottom-0 right-0 m-4 font-medium opacity-80 shadow-lg">
+        Sunsets around the world.
+      </p>
 
       <canvas id="gradient-canvas" className=" z-10 blur-3xl"></canvas>
     </main>
