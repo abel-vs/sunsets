@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react"; // Importing React hooks and features
 import { Gradient } from "@/app/gradient"; // Importing the Gradient component
 import sunsetCities from "@/lib/sunsets";
+import { hexToNormalizedRGB } from "@/lib/utils";
 
 export default function Home() {
   const [currentCityIndex, setCurrentCityIndex] = useState(0); // State to keep track of the current city index
@@ -9,36 +10,31 @@ export default function Home() {
     new Gradient(sunsetCities[currentCityIndex].colors)
   ); // Ref to store the Gradient instance
   const currentCity = sunsetCities[currentCityIndex]; // Get the current city based on the index
-  const currentColors = sunsetCities[currentCityIndex].colors;
-
+  const currentColors = sunsetCities[currentCityIndex].colors.map((color) =>
+    typeof color === "string" ? hexToNormalizedRGB(color) : color
+  );
   const changeCity = () => {
     setCurrentCityIndex((prevIndex) => (prevIndex + 1) % sunsetCities.length);
   };
 
   // Effect hook to initialize and update the gradient for the current city
   useEffect(() => {
-    const city = sunsetCities[currentCityIndex]; // Get the current city based on the index
-    if (city) {
-      gradientRef.current = new Gradient(city.colors); // Create a new Gradient instance with the colors
-    }
-
     const canvasElement = document.querySelector(
       "#gradient-canvas"
     ) as HTMLCanvasElement;
     if (canvasElement) {
-      gradientRef.current.initGradient("#gradient-canvas", city.colors);
+      gradientRef.current.initGradient("#gradient-canvas", currentColors);
     }
-  }, [currentCityIndex]);
+  }, [currentColors]);
 
   // Effect hook to smoothly update the gradient colors when the city changes
   useEffect(() => {
     if (!gradientRef.current) return; // If there's no gradient instance, do nothing
-    const city = sunsetCities[currentCityIndex]; // Get the current city
     if (gradientRef.current) {
-      gradientRef.current.updateSectionColorsSmoothly(city.colors); // Ensure gradientRef.current is not null
+      gradientRef.current.updateSectionColorsSmoothly(currentColors); // Ensure gradientRef.current is not null
     }
     console.log("gradientRef.current", gradientRef.current);
-  }, [currentCityIndex]);
+  }, [currentColors]);
 
   // Render the canvas and display the current gradient colors
   return (
@@ -66,7 +62,7 @@ export default function Home() {
       </div>
 
       <button
-        className="absolute bottom-0 left-0 z-20 m-4 opacity-80 shadow-lg"
+        className="absolute bottom-0 left-0 m-4 opacity-60 z-10"
         onClick={changeCity}
       >
         discover

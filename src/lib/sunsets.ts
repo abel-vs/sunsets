@@ -3,12 +3,7 @@ interface SunsetCity {
   country: string;
   coordinates: [number, number];
   timezone: string;
-  colors: [
-    [number, number, number],
-    [number, number, number],
-    [number, number, number],
-    [number, number, number]
-  ];
+  colors: Array<string | [number, number, number]>;
 }
 
 const sunsetCities: SunsetCity[] = [
@@ -17,24 +12,25 @@ const sunsetCities: SunsetCity[] = [
     country: "Japan",
     coordinates: [35.6895, 139.6917],
     timezone: "UTC+9",
-    colors: [
-      [1, 0.42, 0.42],
-      [1, 0.82, 0.4],
-      [0.3, 0.85, 0.39],
-      [0, 0.48, 1],
-    ],
+    colors: ["ffa200", "f7b267", "f79d65", "f25c54"],
+    //   [(1, 0.42, 0.42)],
+    //   [1, 0.82, 0.4],
+    //   [0.3, 0.85, 0.39],
+    //   [0, 0.48, 1],
+    // ],
   },
   {
     city: "Paris",
     country: "France",
     coordinates: [48.8566, 2.3522],
     timezone: "UTC+1 (UTC+2 DST)",
-    colors: [
-      [1, 0.68, 0.79],
-      [1, 0.8, 0.36],
-      [0.36, 0.74, 0.82],
-      [0.17, 0.24, 0.31],
-    ],
+    colors: ["ff9b54", "ff7f51", "ce4257", "720026"],
+    // colors: [
+    //   [1, 0.68, 0.79],
+    //   [1, 0.8, 0.36],
+    //   [0.36, 0.74, 0.82],
+    //   [0.17, 0.24, 0.31],
+    // ],
   },
   {
     city: "Ottawa",
